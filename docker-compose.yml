@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  ubuntu-repo:
+    build: .
+    container_name: ubuntu-repo
+    ports:
+      - "8080:80"
+    volumes:
+      # 挂载数据目录（重要）
+      - ./data:/repo/mirror
+      - ./config:/repo/config:ro
+      - ./logs:/repo/logs
+      # 挂载apt-mirror工作目录
+      - ./data/apt-mirror-work:/var/spool/apt-mirror
+    environment:
+      - REPO_NAME=Ubuntu Repository
+      - SYNC_SCHEDULE=0 2 * * *
+      - APACHE_LOG_LEVEL=info
+    restart: unless-stopped
+    networks:
+      - repo-net
+
+  # 可选：仓库管理界面
+  repo-manager:
+    image: nginx:alpine
+    container_name: repo-manager
+    ports:
+      - "8081:80"
+    volumes:
+      - ./admin:/usr/share/nginx/html
+      - ./data:/data:ro
+    networks:
+      - repo-net
+
+networks:
+  repo-net:
+    driver: bridge
