@@ -118,3 +118,58 @@ echo "deb http://$(hostname -I | awk '{print $1}'):8080/ubuntu focal-updates mai
 echo "deb http://$(hostname -I | awk '{print $1}'):8080/ubuntu focal-security main restricted universe multiverse"
 echo "EOF"
 ```
+
+## 客户端使用
+### 1. 配置客户端
+
+```bash
+# 在客户端Ubuntu机器上配置本地仓库
+REPO_SERVER="192.168.1.100:8080"  # 替换为实际IP和端口
+
+# 备份原有源
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+
+# 配置本地仓库
+sudo tee /etc/apt/sources.list.d/local-repo.list << EOF
+# 本地Ubuntu软件仓库
+deb http://$REPO_SERVER/ubuntu focal main restricted universe multiverse
+deb http://$REPO_SERVER/ubuntu focal-updates main restricted universe multiverse
+deb http://$REPO_SERVER/ubuntu focal-security main restricted universe multiverse
+EOF
+
+# 更新包列表
+sudo apt update
+
+# 测试安装
+sudo apt install curl vim -y
+```
+
+### 2.验证仓库
+
+```bash
+# 检查仓库状态
+curl -I http://192.168.1.100:8080/
+
+# 浏览仓库内容
+curl http://192.168.1.100:8080/
+
+# 检查特定包
+apt-cache policy curl
+```
+
+### 3.管理和维护
+
+```bash
+# 查看仓库统计
+curl http://192.168.1.100:8080/
+
+# 强制重新同步
+docker exec ubuntu-repo rm -f /repo/mirror/.sync_completed
+docker exec ubuntu-repo /usr/local/bin/sync-repo.sh
+
+# 清理旧文件
+docker exec ubuntu-repo find /repo/mirror -name "*.deb" -mtime +30 -delete
+
+# 备份仓库
+docker exec ubuntu-repo tar -czf /repo/backup-$(date +%Y%m%d).tar.gz -C /repo/mirror .
+```
