@@ -8,7 +8,7 @@
 mkdir -p /opt/ubuntu-repo
 cd /opt/ubuntu-repo
 
-# 创建上述文件...
+# 将文件复制到目录中
 
 # 构建并启动
 docker-compose up -d
