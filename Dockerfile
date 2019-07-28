@@ -3,6 +3,9 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Shanghai
 
+# 复制新的源配置文件
+COPY config/sources.list /etc/apt/sources.list
+
 # 安装必要软件
 RUN apt-get update && apt-get install -y \
     apt-mirror \
