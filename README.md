@@ -11,7 +11,7 @@ cd /opt/ubuntu-repo
 # 将文件复制到目录中
 
 # 构建并启动
-docker-compose up -d
+docker compose -f docker-compose.yml -p ubuntu-repo up -d
 
 # 查看日志
 docker-compose logs -f ubuntu-repo
