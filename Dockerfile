@@ -3,6 +3,9 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Shanghai
 
+# 先使用默认源安装 CA 证书
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 # 复制新的源配置文件
 COPY config/sources.list /etc/apt/sources.list
 
