@@ -14,7 +14,7 @@ cd /opt/ubuntu-repo
 docker compose -f docker-compose.yml -p ubuntu-repo up -d
 
 # 查看日志
-docker-compose logs -f ubuntu-repo
+docker logs -f ubuntu-repo
 ```
 
 ### 2. 监控同步进度
