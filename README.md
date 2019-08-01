@@ -4,14 +4,12 @@
 ### 1. 构建和启动
 
 ```bash
-# 创建目录
-mkdir -p /opt/ubuntu-repo
-cd /opt/ubuntu-repo
+git clone git@github.com:hyfly233/ubuntu-repo.git
 
-# 将文件复制到目录中
+cd ubuntu-repo
 
 # 构建并启动
-docker compose -f docker-compose.yml -p ubuntu-repo up -d
+docker compose up -d
 
 # 查看日志
 docker logs -f ubuntu-repo

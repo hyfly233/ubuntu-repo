@@ -28,7 +28,7 @@ RUN useradd -m -s /bin/bash repouser \
     && chown -R repouser:repouser /repo
 
 # 配置 Apache
-RUN a2enmod rewrite ssl headers autoindex
+RUN a2enmod rewrite ssl headers autoindex expires
 COPY config/apache-repo.conf /etc/apache2/sites-available/repo.conf
 RUN a2ensite repo.conf && a2dissite 000-default
 
