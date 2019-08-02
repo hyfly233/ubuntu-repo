@@ -1,7 +1,7 @@
 services:
   ubuntu-repo:
     build: .
-    container_name: ubuntu-repo:v1
+    container_name: ubuntu-repo
     ports:
       - "8080:80"
     volumes:
@@ -22,7 +22,7 @@ services:
   # 可选：仓库管理界面
   repo-manager:
     image: nginx:alpine
-    container_name: ubuntu-repo-manager:v1
+    container_name: ubuntu-repo-manager
     ports:
       - "8081:80"
     volumes:

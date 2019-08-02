@@ -1,7 +1,12 @@
 FROM ubuntu:20.04
 
+LABEL version="1.0.0"
+LABEL description="Ubuntu Repository Mirror Server"
+LABEL maintainer="hyfly233@outlook.com"
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Shanghai
+ENV APP_VERSION=1.0.0
 
 # 先使用默认源安装 CA 证书
 RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
