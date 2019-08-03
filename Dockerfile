@@ -23,7 +23,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     gnupg \
     rsync \
-    && rm -rf /var/lib/apt/lists/*
+    && which apt-mirror \
+    && apt-mirror --version \
+    && apt-get clean
 
 # 创建用户和目录
 RUN useradd -m -s /bin/bash repouser \
