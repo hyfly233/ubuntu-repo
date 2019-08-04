@@ -9,7 +9,7 @@ ENV TZ=Asia/Shanghai
 ENV APP_VERSION=1.0.0
 
 # 先使用默认源安装 CA 证书
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ca-certificates && apt-get clean
 
 # 复制新的源配置文件
 COPY config/sources.list /etc/apt/sources.list
