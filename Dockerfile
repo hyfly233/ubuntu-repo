@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     rsync
 
-RUN which apt-mirror && apt-mirror --version
+RUN dpkg -l | grep apt-mirror && which apt-mirror
 
 # 创建用户和目录
 RUN useradd -m -s /bin/bash repouser \
