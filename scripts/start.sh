@@ -27,7 +27,6 @@ service apache2 start
 # 检查是否需要初始化
 if [ ! -f "$MIRROR_DIR/.sync_completed" ] && [ ! -f "$MIRROR_DIR/.sync_in_progress" ]; then
     echo "开始首次同步软件仓库..."
-    touch "$MIRROR_DIR/.sync_in_progress"
 
     # 后台同步
     nohup /usr/local/bin/sync-repo.sh > "$LOG_DIR/sync.log" 2>&1 &
