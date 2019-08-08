@@ -11,6 +11,7 @@ services:
       - ./logs:/repo/logs
       # 挂载apt-mirror工作目录
       - ./data/apt-mirror-work:/var/spool/apt-mirror
+      - config/sources.list:/etc/apt/sources.list
     environment:
       - REPO_NAME=Ubuntu Repository
       - SYNC_SCHEDULE=0 2 * * *
